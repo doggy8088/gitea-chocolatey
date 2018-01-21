@@ -3,8 +3,8 @@ $ErrorActionPreference = 'Stop';
 
 $packageName= 'gitea'
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://dl.gitea.io/gitea/1.2.3/gitea-1.2.3-windows-4.0-386.exe'
-$url64      = 'https://dl.gitea.io/gitea/1.2.3/gitea-1.2.3-windows-4.0-amd64.exe'
+$url        = 'https://dl.gitea.io/gitea/1.3.2/gitea-1.3.2-windows-4.0-386.exe'
+$url64      = 'https://dl.gitea.io/gitea/1.3.2/gitea-1.3.2-windows-4.0-amd64.exe'
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $packageArgs = @{
@@ -15,9 +15,9 @@ $packageArgs = @{
 
   softwareName  = 'Gitea'
 
-  checksum      = '72702070a3dc1aa93daa205c1dc86d994cf36e992f8024b0c7780bbdbe6aa8d3'
+  checksum      = 'eded8b360ffd23d184c7b08b91861593d2079248240b215b092cec92fc4ebd82'
   checksumType  = 'sha256'
-  checksum64    = '49490f957622319763c4b1eea78402b4ddb3c05bc384611ffc63135ae745b957'
+  checksum64    = 'bcd5b352da72deed5502020123d099480dfa76e29a33f8de9f72fb57c53dfa35'
   checksumType64= 'sha256'
 
   fileFullPath  = "$toolsDir\gitea.exe"
