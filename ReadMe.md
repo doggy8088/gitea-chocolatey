@@ -23,5 +23,5 @@ choco uninstall gitea -d -s .
 ### How to publish new version
 
 ```
-choco push gitea.1.3.2.nupkg --source https://push.chocolatey.org/
+choco push gitea.1.3.3.nupkg --source https://push.chocolatey.org/
 ```
