@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>gitea</id>
-    <version>1.3.3</version>
+    <version>1.4.0</version>
     <packageSourceUrl>https://github.com/doggy8088/gitea-chocolatey</packageSourceUrl>
     <owners>Will 保哥</owners>
     <title>Gitea</title>
@@ -19,13 +19,139 @@
     <summary>A painless self-hosted Git service.</summary>
     <description>Gitea is a community managed fork of Gogs, lightweight code hosting solution written in Go and published under the MIT license.</description>
     <releaseNotes>
+*   BREAKING
+
+    *   Drop deprecated GOGS_WORK_DIR use ([#2946](https://github.com/go-gitea/gitea/pull/2946))
+    *   Fix API status code for hook creation ([#2814](https://github.com/go-gitea/gitea/pull/2814))
+
 *   SECURITY
-    *   Fix escaping changed title in comments ([#3530](https://github.com/go-gitea/gitea/pull/3530)) ([#3535](https://github.com/go-gitea/gitea/pull/3535))
-    *   Escape search query display ([#3486](https://github.com/go-gitea/gitea/pull/3486)) ([#3489](https://github.com/go-gitea/gitea/pull/3489))
+
+    *   Escape branch name in dropdown menu ([#3691](https://github.com/go-gitea/gitea/pull/3691)) ([#3692](https://github.com/go-gitea/gitea/pull/3692))
+    *   Refactor and simplify to correctly validate redirect to URL ([#3674](https://github.com/go-gitea/gitea/pull/3674)) ([#3676](https://github.com/go-gitea/gitea/pull/3676))
+    *   Fix escaping changed title in comments ([#3530](https://github.com/go-gitea/gitea/pull/3530)) ([#3534](https://github.com/go-gitea/gitea/pull/3534))  
+
+ * Escape search query ([#3486](https://github.com/go-gitea/gitea/pull/3486)) ([#3488](https://github.com/go-gitea/gitea/pull/3488))
+    *   Sanitize logs for mirror sync ([#3057](https://github.com/go-gitea/gitea/pull/3057))
+
+*   FEATURE
+
+    *   Serve .patch and .diff for pull requests ([#3305](https://github.com/go-gitea/gitea/pull/3305), [#3293](https://github.com/go-gitea/gitea/pull/3293))
+    *   Add repo-sync-releases admin command ([#3254](https://github.com/go-gitea/gitea/pull/3254))
+    *   Support default private when creating or migrating repository ([#3239](https://github.com/go-gitea/gitea/pull/3239))
+    *   Writable deploy keys (closes [#671](https://github.com/go-gitea/gitea/issues/671)) ([#3225](https://github.com/go-gitea/gitea/pull/3225))
+    *   Add Pull Request merge options - Ignore white-space for conflict checking, Rebase, Squash merge ([#3188](https://github.com/go-gitea/gitea/pull/3188))
+    *   Added progressbar for issues with checkboxes ([#1146](https://github.com/go-gitea/gitea/issues/1146)). ([#3171](https://github.com/go-gitea/gitea/pull/3171))
+    *   Mention completion for issue editor. ([#3136](https://github.com/go-gitea/gitea/pull/3136))
+    *   Add 'mark all read' option to notifications ([#3097](https://github.com/go-gitea/gitea/pull/3097))
+    *   Git LFS lock api ([#2938](https://github.com/go-gitea/gitea/pull/2938))
+    *   Add reactions to issues/PR and comments ([#2856](https://github.com/go-gitea/gitea/pull/2856))
+    *   Add dingtalk webhook  ([#2777](https://github.com/go-gitea/gitea/pull/2777))
+    *   Responsive view ([#2750](https://github.com/go-gitea/gitea/pull/2750))
+
 *   BUGFIXES
-    *   Fix repo-transfer-and-team-repo-count bug ([#3241](https://github.com/go-gitea/gitea/pull/3241)) ([#3244](https://github.com/go-gitea/gitea/pull/3244))
-    *   Open external tracker in blank window, consistently with wiki ([#3227](https://github.com/go-gitea/gitea/pull/3227)) ([#3228](https://github.com/go-gitea/gitea/pull/3228))
-    *   Change SSL Mode from checkbox to string in admin page ([#3208](https://github.com/go-gitea/gitea/pull/3208)) ([#3211](https://github.com/go-gitea/gitea/pull/3211))
+
+    *   Fix wiki inter-links with spaces ([#3560](https://github.com/go-gitea/gitea/pull/3560)) ([#3632](https://github.com/go-gitea/gitea/pull/3632))
+    *   Fix query protected branch bug ([#3563](https://github.com/go-gitea/gitea/pull/3563)) ([#3571](https://github.com/go-gitea/gitea/pull/3571))
+    *   Fix remove team member issue ([#3566](https://github.com/go-gitea/gitea/pull/3566)) ([#3570](https://github.com/go-gitea/gitea/pull/3570))
+    *   Fix the protected branch panic issue ([#3567](https://github.com/go-gitea/gitea/pull/3567)) ([#3569](https://github.com/go-gitea/gitea/pull/3569))
+    *   If Mirrors repository no content is fetched, updated time should not be changed ([#3551](https://github.com/go-gitea/gitea/pull/3551)) ([#3565](https://github.com/go-gitea/gitea/pull/3565))
+    *   Bug fix for mirrored repository releases sorted ([#3522](https://github.com/go-gitea/gitea/pull/3522)) ([#3555](https://github.com/go-gitea/gitea/pull/3555))
+    *   Add issue closed time column to fix activity closed issues list ([#3537](https://github.com/go-gitea/gitea/pull/3537)) ([#3540](https://github.com/go-gitea/gitea/pull/3540))  
+
+ * Update markbates/goth library to support OAuth2 with new dropbox API ([#3533](https://github.com/go-gitea/gitea/pull/3533)) ([#3539](https://github.com/go-gitea/gitea/pull/3539))  
+
+ * Fixes missing avatars in offline mode ([#3471](https://github.com/go-gitea/gitea/pull/3471)) ([#3477](https://github.com/go-gitea/gitea/pull/3477))  
+
+ * Fix synchronization bug in repo indexer ([#3455](https://github.com/go-gitea/gitea/pull/3455)) ([#3461](https://github.com/go-gitea/gitea/pull/3461))  
+
+ * Fix rendering of wiki page list if wiki repo contains other files ([#3454](https://github.com/go-gitea/gitea/pull/3454)) ([#3463](https://github.com/go-gitea/gitea/pull/3463))
+    *   Fix webhook X-GitHub-* headers casing for better compatibility ([#3429](https://github.com/go-gitea/gitea/pull/3429))
+    *   Add content type and doctype to requests made with go-get ([#3426](https://github.com/go-gitea/gitea/pull/3426), [#3423](https://github.com/go-gitea/gitea/pull/3423))
+    *   Fix SQL type error for webhooks ([#3424](https://github.com/go-gitea/gitea/pull/3424))
+    *   Fix PR merge error ([#3421](https://github.com/go-gitea/gitea/pull/3421))
+    *   Recognize more characters in crossreferenced repo name ([#3413](https://github.com/go-gitea/gitea/pull/3413))
+    *   Fix MSSQL bug on org ([#3405](https://github.com/go-gitea/gitea/pull/3405))
+    *   HTML escape all lines of the search result ([#3402](https://github.com/go-gitea/gitea/pull/3402))
+    *   Change local copy origin url after repository rename ([#3399](https://github.com/go-gitea/gitea/pull/3399))
+    *   Force-push to base repo's ref/pull/#/head ([#3393](https://github.com/go-gitea/gitea/pull/3393))
+    *   Fix bug when a user delete but assigned on issue ([#3318](https://github.com/go-gitea/gitea/pull/3318))
+    *   Use issue number/index instead of id for API URL. Fix [#3297](https://github.com/go-gitea/gitea/issues/3297) ([#3298](https://github.com/go-gitea/gitea/pull/3298))
+    *   Fix repo-transfer-and-team-repo-count bug ([#3241](https://github.com/go-gitea/gitea/pull/3241))
+    *   Fix always-on SSL Mode checkbox in admin page ([#3208](https://github.com/go-gitea/gitea/pull/3208))
+    *   Fix source download link when no code unit allowed ([#3166](https://github.com/go-gitea/gitea/pull/3166))
+    *   Fix org owner cannot be removed if he is not in owner team ([#3164](https://github.com/go-gitea/gitea/pull/3164))
+    *   Fix run web with -p push failed ([#3154](https://github.com/go-gitea/gitea/pull/3154))
+    *   Fix gpg tmpl ([#3153](https://github.com/go-gitea/gitea/pull/3153))
+    *   Fix SSH auth lfs locks ([#3152](https://github.com/go-gitea/gitea/pull/3152))
+    *   Improvements for supporting UI Location ([#3146](https://github.com/go-gitea/gitea/pull/3146))
+    *   Fix new pull request link ([#3133](https://github.com/go-gitea/gitea/pull/3133))
+    *   Fix missing branch in release bug ([#3108](https://github.com/go-gitea/gitea/pull/3108))
+    *   Allow adding collaborators with (fullname) ([#3103](https://github.com/go-gitea/gitea/pull/3103))
+    *   Fix repo links ([#3093](https://github.com/go-gitea/gitea/pull/3093))
+    *   fix lfs url refs + keep path upper/lowercase in db. ([#3092](https://github.com/go-gitea/gitea/pull/3092))
+    *   Fix redis session failed ([#3086](https://github.com/go-gitea/gitea/pull/3086))
+    *   Fix bugs in issue dashboard stats ([#3073](https://github.com/go-gitea/gitea/pull/3073))
+    *   Fix avatar URLs ([#3069](https://github.com/go-gitea/gitea/pull/3069))
+    *   Fix ref parsing in commit messages ([#3067](https://github.com/go-gitea/gitea/pull/3067))
+    *   Fix issue list branch link broken ([#3061](https://github.com/go-gitea/gitea/pull/3061))
+    *   sendmail: correct option to set envelope-sender ([#3044](https://github.com/go-gitea/gitea/pull/3044))
+    *   Fix missing password length check when change password ([#3039](https://github.com/go-gitea/gitea/pull/3039))
+    *   Fix git lfs path ([#3016](https://github.com/go-gitea/gitea/pull/3016))
+    *   Fix API-Endpoint release ([#3005](https://github.com/go-gitea/gitea/issues/3005)) ([#3012](https://github.com/go-gitea/gitea/pull/3012))
+    *   Set OpenID support on by default when installing new instance ([#3010](https://github.com/go-gitea/gitea/pull/3010))
+    *   Various wiki bug fixes ([#2996](https://github.com/go-gitea/gitea/pull/2996))
+    *   Fix go-get, src and raw urls to new scheme ([#2978](https://github.com/go-gitea/gitea/pull/2978))
+    *   Fix error when add user has full name to team ([#2973](https://github.com/go-gitea/gitea/pull/2973))
+    *   Fix memcache support when value is returned as string always ([#2924](https://github.com/go-gitea/gitea/pull/2924))
+
+*   ENHANCEMENT
+
+    *   Use GiteaServer as the user agent for http requests ([#3404](https://github.com/go-gitea/gitea/pull/3404))
+    *   Delete indexer DB entries when (re)creating index ([#3385](https://github.com/go-gitea/gitea/pull/3385))
+    *   Change how merged PR commit info are prepared ([#3368](https://github.com/go-gitea/gitea/pull/3368))
+    *   Asynchronously populate the repo indexer ([#3366](https://github.com/go-gitea/gitea/pull/3366))
+    *   Make the default action for the gitea executable that of running the webserver ([#3331](https://github.com/go-gitea/gitea/pull/3331))
+    *   Templates for extra links in top navbar and repo tool tabs. ([#3308](https://github.com/go-gitea/gitea/pull/3308))
+    *   Fixed asterisk based tasklist items [#3295](https://github.com/go-gitea/gitea/issues/3295) ([#3296](https://github.com/go-gitea/gitea/pull/3296))
+    *   Add more additional template snippets ([#3286](https://github.com/go-gitea/gitea/pull/3286))
+    *   Open external tracker in blank window, consistently with wiki ([#3227](https://github.com/go-gitea/gitea/pull/3227))
+    *   Fix repo links on user profile ([#3197](https://github.com/go-gitea/gitea/pull/3197))
+    *   Enable emoji for wiki view ([#3158](https://github.com/go-gitea/gitea/pull/3158))
+    *   Small improve on deleting attachements ([#3145](https://github.com/go-gitea/gitea/pull/3145))
+    *   Reduce overhead of upgrades for users with custom stylesheets/JS ([#3051](https://github.com/go-gitea/gitea/pull/3051))
+    *   Default log level to Info without hardcoding it in installer ([#3041](https://github.com/go-gitea/gitea/pull/3041))
+    *   Memory usage improvements ([#3013](https://github.com/go-gitea/gitea/pull/3013))
+    *   Add fingerprint to ssh key endpoints. ([#3009](https://github.com/go-gitea/gitea/pull/3009))
+    *   Improve memory usage when reaching diff limits ([#2990](https://github.com/go-gitea/gitea/pull/2990))
+    *   Expandable commit bodies ([#2980](https://github.com/go-gitea/gitea/pull/2980))
+    *   Update gitgraph.js to fix blurry commit graph on HiDPI screens ([#2957](https://github.com/go-gitea/gitea/pull/2957))
+    *   Fix language names ([#2955](https://github.com/go-gitea/gitea/pull/2955))
+    *   Remove render issue link ([#2954](https://github.com/go-gitea/gitea/pull/2954))
+    *   Page parameter for repo search API ([#2915](https://github.com/go-gitea/gitea/pull/2915))
+    *   Apply LANDING_PAGE config options for logged in users ([#2894](https://github.com/go-gitea/gitea/pull/2894))
+    *   Enable admin to search by email ([#2888](https://github.com/go-gitea/gitea/pull/2888))
+    *   Hide add key button if SSH is disabled ([#2873](https://github.com/go-gitea/gitea/pull/2873))
+    *   Fix comment API paths ([#2813](https://github.com/go-gitea/gitea/pull/2813))
+    *   Add an option to allow redirect of http port 80 to https. ([#1928](https://github.com/go-gitea/gitea/pull/1928))
+
+*   MISC
+
+    *   Fix organization profile on mobile devices ([#3332](https://github.com/go-gitea/gitea/pull/3332))
+    *   Fix guide link for webhooks in repository settings ([#3291](https://github.com/go-gitea/gitea/issues/3291)) ([#3292](https://github.com/go-gitea/gitea/pull/3292))
+    *   Enable Libravatar by default in new installations ([#3287](https://github.com/go-gitea/gitea/pull/3287))
+    *   Improve suppressed diff boxes ([#3193](https://github.com/go-gitea/gitea/pull/3193))
+    *   fix button heights on commits page ([#3091](https://github.com/go-gitea/gitea/pull/3091))
+    *   Minor copy changes ([#3074](https://github.com/go-gitea/gitea/pull/3074))
+    *   Sort repos in issues dashboard sidebar ([#3072](https://github.com/go-gitea/gitea/pull/3072))
+    *   Remove box-shadow from UI, fix dashboard issue ([#3065](https://github.com/go-gitea/gitea/pull/3065))
+    *   Adjust branch button size ([#3063](https://github.com/go-gitea/gitea/pull/3063))
+    *   Fix misalignment issue in repo header ([#3062](https://github.com/go-gitea/gitea/pull/3062))
+    *   Delete a user's public key via admin api (closes [#3014](https://github.com/go-gitea/gitea/issues/3014)) ([#3059](https://github.com/go-gitea/gitea/pull/3059))
+    *   Dashboard: Fix line height problem in issue titles ([#3054](https://github.com/go-gitea/gitea/pull/3054))
+    *   Remove duplicate "Max Diff Lines" from config view ([#2987](https://github.com/go-gitea/gitea/pull/2987))
+    *   Drop unmaintained gogs migration script ([#2947](https://github.com/go-gitea/gitea/pull/2947))
+    *   App restarts to quickly if it fails to start. ([#2945](https://github.com/go-gitea/gitea/pull/2945))
+    *   Add owner to delete repo message ([#2886](https://github.com/go-gitea/gitea/pull/2886))
     </releaseNotes>
   </metadata>
   <files>
