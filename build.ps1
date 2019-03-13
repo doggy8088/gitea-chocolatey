@@ -1,25 +1,22 @@
 ﻿$LatestJSON = ((Invoke-WebRequest "https://api.github.com/repos/go-gitea/gitea/releases/latest").Content | ConvertFrom-Json)
-$LatestVersion = $LatestJSON.tag_name -replace "v" -replace ""
+
+$LatestGiteaVersion = $LatestJSON.tag_name -replace "v" -replace ""
 $ReleaseNotes  = $LatestJSON.body.Replace("`r`n`r`n", "`r`n")
 
 $LatestChocoVersion = ((choco list gitea --all -r)[0] -split '\|')[1]
 
-if ($LatestChocoVersion -ge $LatestVersion)
-{
-  Exit 0
-}
-
+$LatestGiteaVersion | Out-File -FilePath LatestGiteaVersion.txt -Encoding UTF8
 $LatestChocoVersion | Out-File -FilePath LatestChocoVersion.txt -Encoding UTF8
 
-$x86_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-386.exe.sha256").Content) -split "  ")[0]
-$x64_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-amd64.exe.sha256").Content) -split "  ")[0]
+$x86_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestGiteaVersion/gitea-$LatestGiteaVersion-windows-4.0-386.exe.sha256").Content) -split "  ")[0]
+$x64_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestGiteaVersion/gitea-$LatestGiteaVersion-windows-4.0-amd64.exe.sha256").Content) -split "  ")[0]
 
 @"
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>gitea</id>
-    <version>$LatestVersion</version>
+    <version>$LatestGiteaVersion</version>
     <packageSourceUrl>https://github.com/doggy8088/gitea-chocolatey</packageSourceUrl>
     <owners>Will 保哥</owners>
     <title>Gitea</title>
@@ -49,8 +46,8 @@ $x64_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https:
 
 `$packageName= 'gitea'
 `$toolsDir   = "`$(Split-Path -parent `$MyInvocation.MyCommand.Definition)"
-`$url        = 'https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-386.exe'
-`$url64      = 'https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-amd64.exe'
+`$url        = 'https://dl.gitea.io/gitea/$LatestGiteaVersion/gitea-$LatestGiteaVersion-windows-4.0-386.exe'
+`$url64      = 'https://dl.gitea.io/gitea/$LatestGiteaVersion/gitea-$LatestGiteaVersion-windows-4.0-amd64.exe'
 `$toolsDir   = "`$(Split-Path -parent `$MyInvocation.MyCommand.Definition)"
 
 `$packageArgs = @{
@@ -80,5 +77,13 @@ choco pack
 # choco uninstall gitea -d -s .
 
 @"
-choco push gitea.$LatestVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO.APIKEY__
+$LatestChocoVersion = Get-Content LatestChocoVersion.txt
+$LatestGiteaVersion = Get-Content LatestGiteaVersion.txt
+
+if ($LatestChocoVersion -ge $LatestGiteaVersion)
+{
+  Exit 0
+}
+
+choco push gitea.$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO.APIKEY__
 "@ | Out-File -FilePath publish.ps1
