@@ -23,7 +23,7 @@ choco uninstall gitea -d -s .
 ### How to publish new version
 
 ```sh
-choco push gitea.1.7.0.nupkg --source https://push.chocolatey.org/
+choco push gitea.X.Y.Z.nupkg --source https://push.chocolatey.org/
 ```
 
 ### How to update this package
@@ -46,12 +46,20 @@ choco push gitea.1.7.0.nupkg --source https://push.chocolatey.org/
 
     ```sh
     choco pack
-    choco install gitea -d -s .
+    choco install gitea -d -s . -y
     choco uninstall gitea -d -s .
     ```
 
-4. Publish to Chocolatey Gallary
+4. Publish to Chocolatey Gallery
 
     ```sh
-    choco push gitea.1.7.0.nupkg --source https://push.chocolatey.org/
+    choco push gitea.X.Y.Z.nupkg --source https://push.chocolatey.org/
     ```
+
+### How to build latest version of Gitea chocolatey package
+
+```sh
+.\build.ps1
+```
+
+This will generate a `publish.ps1` file to help publish to the Chocolatey Gallery.
