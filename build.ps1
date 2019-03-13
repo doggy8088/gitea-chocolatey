@@ -9,6 +9,8 @@ if ($LatestChocoVersion -ge $LatestVersion)
   Exit 0
 }
 
+$LatestChocoVersion | Out-File -FilePath LatestChocoVersion.txt -Encoding UTF8
+
 $x86_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-386.exe.sha256").Content) -split "  ")[0]
 $x64_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-amd64.exe.sha256").Content) -split "  ")[0]
 
