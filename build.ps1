@@ -85,5 +85,5 @@ if ($LatestChocoVersion -ge $LatestGiteaVersion)
   Exit 0
 }
 
-choco push gitea.$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO.APIKEY__
+choco push gitea.$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
 "@ | Out-File -FilePath publish.ps1
