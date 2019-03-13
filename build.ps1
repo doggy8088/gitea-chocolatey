@@ -80,10 +80,17 @@ choco pack
 `$LatestChocoVersion = Get-Content LatestChocoVersion.txt
 `$LatestGiteaVersion = Get-Content LatestGiteaVersion.txt
 
+# echo LatestChocoVersion = `$LatestChocoVersion
+# echo LatestGiteaVersion = `$LatestGiteaVersion
+
 if (`$LatestChocoVersion -ge `$LatestGiteaVersion)
 {
+  Echo "因為 Chocolatey 的 Gitea 套件版本(`$LatestChocoVersion) 大於等於 Gitea `$LatestGiteaVersion 版本，因此不需要發行套件！"
   Exit 0
 }
-
-choco push gitea.`$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
-"@ | Out-File -FilePath publish.ps1
+else
+{
+  Echo "準備發行 Gitea `$LatestGiteaVersion 版本到 Chocolatey Gallery"
+  choco push gitea.`$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
+}
+"@ | Out-File -FilePath publish.ps1 -Encoding UTF8
