@@ -77,13 +77,13 @@ choco pack
 # choco uninstall gitea -d -s .
 
 @"
-$LatestChocoVersion = Get-Content LatestChocoVersion.txt
-$LatestGiteaVersion = Get-Content LatestGiteaVersion.txt
+`$LatestChocoVersion = Get-Content LatestChocoVersion.txt
+`$LatestGiteaVersion = Get-Content LatestGiteaVersion.txt
 
-if ($LatestChocoVersion -ge $LatestGiteaVersion)
+if (`$LatestChocoVersion -ge `$LatestGiteaVersion)
 {
   Exit 0
 }
 
-choco push gitea.$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
+choco push gitea.`$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
 "@ | Out-File -FilePath publish.ps1
