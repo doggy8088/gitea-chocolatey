@@ -71,5 +71,5 @@ choco pack
 # choco uninstall gitea -d -s .
 
 @"
-choco push gitea.$LatestVersion.nupkg --source https://push.chocolatey.org/ --key=APIKEY
+choco push gitea.$LatestVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO_APIKEY__
 "@ | Out-File -FilePath publish.ps1
