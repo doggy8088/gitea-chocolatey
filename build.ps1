@@ -2,6 +2,13 @@
 $LatestVersion = $LatestJSON.tag_name -replace "v" -replace ""
 $ReleaseNotes  = $LatestJSON.body.Replace("`r`n`r`n", "`r`n")
 
+$LatestChocoVersion = ((choco list gitea --all -r)[0] -split '\|')[1]
+
+if ($LatestChocoVersion -ge $LatestVersion)
+{
+  Exit 0
+}
+
 $x86_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-386.exe.sha256").Content) -split "  ")[0]
 $x64_sha256 = ([System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest "https://dl.gitea.io/gitea/$LatestVersion/gitea-$LatestVersion-windows-4.0-amd64.exe.sha256").Content) -split "  ")[0]
 
@@ -71,5 +78,5 @@ choco pack
 # choco uninstall gitea -d -s .
 
 @"
-choco push gitea.$LatestVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO_APIKEY__
+choco push gitea.$LatestVersion.nupkg --source https://push.chocolatey.org/ --key=__CHOCO.APIKEY__
 "@ | Out-File -FilePath publish.ps1
