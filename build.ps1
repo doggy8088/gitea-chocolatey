@@ -1,7 +1,7 @@
 ﻿$LatestJSON = ((Invoke-WebRequest "https://api.github.com/repos/go-gitea/gitea/releases/latest").Content | ConvertFrom-Json)
 
 $LatestGiteaVersion = $LatestJSON.tag_name -replace "v" -replace ""
-$ReleaseNotes  = $LatestJSON.body.Replace("`r`n`r`n", "`r`n")
+$ReleaseNotes  = $LatestJSON.body.Replace("`r`n`r`n", "`r`n").Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
 
 $LatestChocoVersion = ((choco list gitea --all -r)[0] -split '\|')[1]
 
