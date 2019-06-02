@@ -1,4 +1,6 @@
-﻿## Gitea: Git with a cup of tea (Chocolatey package)
+## Gitea: Git with a cup of tea (Chocolatey package)
+
+[![Build Status](https://willh.visualstudio.com/gitea-chocolatey/_apis/build/status/gitea-chocolatey-CI?branchName=master)](https://willh.visualstudio.com/gitea-chocolatey/_build/latest?definitionId=15&branchName=master)
 
 Project Repo: [Gitea - Git with a cup of tea](https://github.com/go-gitea/gitea)
 
