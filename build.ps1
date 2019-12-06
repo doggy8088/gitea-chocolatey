@@ -3,7 +3,7 @@
 $LatestGiteaVersion = $LatestJSON.tag_name -replace "v" -replace ""
 $ReleaseNotes  = $LatestJSON.body.Replace("`r`n`r`n", "`r`n").Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
 
-$LatestChocoVersion = ((choco list gitea --all -r)[0] -split '\|')[1]
+$LatestChocoVersion = ((choco list gitea -r --all | C:\Windows\System32\sort.exe /r)[0] -split '\|')[1]
 
 $LatestGiteaVersion | Out-File -FilePath LatestGiteaVersion.txt -Encoding UTF8
 $LatestChocoVersion | Out-File -FilePath LatestChocoVersion.txt -Encoding UTF8
@@ -77,20 +77,25 @@ choco pack
 # choco uninstall gitea -d -s .
 
 @"
+Set-ExecutionPolicy Unrestricted -Force
+Install-Module -Name PoshSemanticVersion -Force
+
 `$LatestChocoVersion = Get-Content LatestChocoVersion.txt
 `$LatestGiteaVersion = Get-Content LatestGiteaVersion.txt
 
-# echo LatestChocoVersion = `$LatestChocoVersion
-# echo LatestGiteaVersion = `$LatestGiteaVersion
+# Write-Output LatestChocoVersion = `$LatestChocoVersion
+# Write-Output LatestGiteaVersion = `$LatestGiteaVersion
 
-if (`$LatestChocoVersion -ge `$LatestGiteaVersion)
+`$Precedence = (Compare-SemanticVersion -ReferenceVersion `$LatestChocoVersion -DifferenceVersion `$LatestGiteaVersion).Precedence;
+
+if (`$Precedence -eq '>' -or `$Precedence -eq '=')
 {
-  Echo "因為 Chocolatey 的 Gitea 套件版本(`$LatestChocoVersion) 大於等於 Gitea `$LatestGiteaVersion 版本，因此不需要發行套件！"
+  Write-Output "因為 Chocolatey 的 Gitea 套件版本(`$LatestChocoVersion) 大於等於 Gitea `$LatestGiteaVersion 版本，因此不需要發行套件！"
   Exit 0
 }
 else
 {
-  Echo "準備發行 Gitea `$LatestGiteaVersion 版本到 Chocolatey Gallery"
+  Write-Output "準備發行 Gitea `$LatestGiteaVersion 版本到 Chocolatey Gallery"
   choco push gitea.`$LatestGiteaVersion.nupkg --source https://push.chocolatey.org/ --key=#{CHOCO_APIKEY}#
 }
 "@ | Out-File -FilePath publish.ps1 -Encoding UTF8
